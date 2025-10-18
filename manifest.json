@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "Minimal Email Alarm Notifier",
+  "version": "1.0",
+  "description": "Plays a static alarm for specific emails on Gmail.",
+  "permissions": [
+    "alarms",
+    "storage",
+    "notifications",
+    "scripting"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module" 
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Email Alarm Notifier"
+  },
+  "host_permissions": [
+    "*://mail.google.com/*"
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["alarm.mp3"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  }
+}
