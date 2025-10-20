@@ -1,32 +1,107 @@
-body {
-  font-family: Arial, sans-serif;
-  padding: 10px;
-  width: 250px;
-  background: #f8f9fa;
-}
+   /* Basic layout */
+    :root {
+      --bg: #f7f9fb;
+      --card: #ffffff;
+      --muted: #6b7280;
+      --accent: #007bff;
+      --success: #28a745;
+      --danger: #dc3545;
+      --surface: #f0f2f5;
+    }
+    html,body {
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      color: #111827;
+      background: var(--surface);
+    }
+    #app-container {
+      width: 340px;
+      padding: 14px;
+      box-sizing: border-box;
+    }
 
-.container {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
+    /* Header */
+    #header {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:12px;
+      gap:8px;
+    }
+    #app-title {
+      margin:0;
+      font-size:1.15rem;
+      font-weight:700;
+      color:#0f172a;
+      letter-spacing: -0.2px;
+    }
+    #settings-btn {
+      background:transparent;
+      border:0;
+      padding:6px;
+      cursor:pointer;
+      color:var(--muted);
+    }
+    #settings-btn:hover { color: var(--accent); }
 
-input {
-  padding: 6px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-}
+    /* Monitor card */
+    .card {
+      background: var(--card);
+      border-radius:10px;
+      padding:12px;
+      box-shadow: 0 6px 18px rgba(15,23,42,0.06);
+      margin-bottom:12px;
+      border: 1px solid rgba(15,23,42,0.04);
+    }
+    .status-msg {
+      font-size: 0.98rem;
+      font-weight: 700;
+      margin: 6px 0 12px 0;
+      padding:8px;
+      border-radius:6px;
+    }
+    .watching { background:#e6ffed; color:#065f46; border:1px solid #bbf7d0; }
+    .stopped { background:#fff1f2; color:#7f1d1d; border:1px solid #fecaca; }
 
-button {
-  background: #0d6efd;
-  color: white;
-  border: none;
-  padding: 8px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
-}
+    /* Buttons */
+    .rounded-btn {
+      width:100%;
+      padding:10px;
+      border-radius:10px;
+      border:0;
+      font-size:1rem;
+      font-weight:700;
+      cursor:pointer;
+      box-shadow: 0 6px 14px rgba(2,6,23,0.06);
+    }
+    #startStopButton.start { background: var(--success); color: white; }
+    #startStopButton.start:hover { filter:brightness(.95); }
+    #startStopButton.stop { background: var(--danger); color: white; }
+    #stopAlarmButton { margin-top:8px; background:#111827; color:white; border-radius:8px; padding:8px; font-weight:700; }
 
-button:hover {
-  background: #0b5ed7;
-}
+    /* small info */
+    .small-text { font-size:0.82rem; color:var(--muted); margin-top:8px; }
+
+    /* last alarm */
+    #last-alarm-container { margin-top:12px; border-top:1px dashed #eef2f7; padding-top:10px; }
+    #last-alarm-detail { font-size:0.9rem; color:#374151; word-break:break-word; }
+
+    /* settings view */
+    .hidden { display:none; }
+    #rule-list { max-height:160px; overflow:auto; padding:8px; background:#fff; border-radius:8px; border:1px solid #eef2f6; }
+    .rule-item { display:flex; justify-content:space-between; gap:8px; padding:6px 4px; align-items:center; border-bottom:1px solid #f3f6f8; }
+    .rule-item:last-child { border-bottom:0; }
+    .action-btn { width:100%; padding:10px; background:var(--accent); color:white; border:0; border-radius:8px; font-weight:700; cursor:pointer; }
+    .back-btn { background:#6c757d; }
+
+    /* matched mails */
+    #matched-panel { margin-top:10px; border-radius:8px; background:#fff; padding:8px; border:1px solid #eef2f7; max-height:120px; overflow:auto; }
+    .match-item { padding:6px; border-bottom:1px solid #f3f6f8; font-size:0.9rem; color:#0f172a; }
+    .match-item:last-child { border-bottom:0; }
+
+    /* utility */
+    .row { display:flex; gap:8px; align-items:center; }
+    .btn-ghost { background:transparent; border:1px solid #e6eefb; color:var(--accent); padding:8px 10px; border-radius:8px; cursor:pointer; }

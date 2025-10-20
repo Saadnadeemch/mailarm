@@ -1,93 +1,190 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-    <title>Email Alarm Notifier</title>
-    <style>
-        /* ... (Keep the CSS from the previous version) ... */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            width: 300px;
-            padding: 15px;
-            background-color: #f7f7f7;
-        }
-        h3 {
-            color: #333;
-            border-bottom: 2px solid #ddd;
-            padding-bottom: 5px;
-            margin-top: 0;
-            font-size: 1.1em;
-        }
-        .container {
-            background-color: #fff;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-        }
-        .settings-section {
-            margin-bottom: 20px;
-            padding: 10px;
-            border: 1px solid #eee;
-            border-radius: 6px;
-        }
-        label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 5px;
-            color: #555;
-            font-size: 0.9em;
-        }
-        input[type="text"] {
-            width: 95%;
-            padding: 8px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-            font-size: 0.9em;
-        }
-        button {
-            width: 100%;
-            padding: 10px;
-            border: none;
-            border-radius: 6px;
-            color: white;
-            font-size: 1em;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            font-weight: 700;
-        }
-        #startStopButton.start {
-            background-color: #4CAF50; /* Green */
-        }
-        #startStopButton.start:hover {
-            background-color: #45a049;
-        }
-        #startStopButton.stop {
-            background-color: #f44336; /* Red */
-        }
-        #startStopButton.stop:hover {
-            background-color: #da190b;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Email Monitor</title>
+  <style>
+    /* Upwork-inspired minimalist theme: green (accent), white cards, slate text */
+    :root {
+      --bg: #f3f6f8;
+      --card: #ffffff;
+      --muted: #64748b;       /* slate-muted */
+      --accent: #14A300;      /* Upwork-style green */
+      --accent-dark: #118e00;
+      --surface: #eef3f6;
+      --slate: #0f172a;
+      --danger: #dc3545;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      color: var(--slate);
+      background: var(--bg);
+    }
+
+    #app-container {
+      width: 340px;
+      padding: 14px;
+      box-sizing: border-box;
+    }
+
+    /* Header */
+    #header {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:12px;
+      gap:8px;
+    }
+    #app-title {
+      margin:0;
+      font-size:1.05rem;
+      font-weight:700;
+      color:var(--slate);
+      letter-spacing: -0.2px;
+    }
+    #settings-btn {
+      background:transparent;
+      border:0;
+      padding:6px;
+      cursor:pointer;
+      color:var(--muted);
+      font-size:1.05rem;
+    }
+    #settings-btn:hover { color:var(--accent-dark); }
+
+    /* Card */
+    .card {
+      background: var(--card);
+      border-radius:10px;
+      padding:12px;
+      box-shadow: 0 6px 18px rgba(15,23,42,0.06);
+      margin-bottom:12px;
+      border: 1px solid rgba(15,23,42,0.04);
+    }
+
+    .status-msg {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin: 6px 0 12px 0;
+      padding:10px;
+      border-radius:8px;
+      color: var(--slate);
+      background: linear-gradient(180deg, rgba(255,255,255,0.7), rgba(250,250,250,0.8));
+      border: 1px solid rgba(0,0,0,0.03);
+    }
+
+    /* Buttons */
+    .rounded-btn {
+      width:100%;
+      padding:12px;
+      border-radius:12px;
+      border:0;
+      font-size:0.98rem;
+      font-weight:700;
+      cursor:pointer;
+      box-shadow: 0 6px 14px rgba(2,6,23,0.06);
+    }
+    /* Start = Upwork green */
+    #startStopButton.start {
+      background: var(--accent);
+      color: white;
+    }
+    #startStopButton.start:hover { filter:brightness(.96); }
+    /* Stop monitoring = subtle slate button */
+    #startStopButton.stop {
+      background: #1f2937;
+      color: white;
+    }
+
+    /* Stop ALARM button (visible when alarm ringing) */
+    #stopAlarmButton {
+      margin-top:10px;
+      background:#14A300; /* deep slate */
+      color:white;
+      border-radius:10px;
+      padding:10px;
+      width:100%;
+      font-weight:700;
+      border:0;
+      cursor:pointer;
+    }
+
+    .small-text { font-size:0.82rem; color:var(--muted); margin-top:8px; }
+
+    /* settings inputs */
+    input[type="text"] {
+      width:100%;
+      padding:10px 12px;
+      box-sizing:border-box;
+      border:1px solid #e6eef3;
+      border-radius:8px;
+      outline:none;
+      font-size:0.95rem;
+      color:var(--slate);
+      background: #fbfdff;
+    }
+    input[type="text"]:focus {
+      border-color: var(--accent-dark);
+      box-shadow: 0 6px 18px rgba(108,198,68,0.08);
+    }
+    #rule-list { max-height:160px; overflow:auto; padding:8px; background:#fff; border-radius:8px; border:1px solid #eef2f6; }
+    .rule-item { display:flex; justify-content:space-between; gap:8px; padding:8px; align-items:center; border-bottom:1px solid #f3f6f8; }
+    .rule-item:last-child { border-bottom:0; }
+
+    .action-btn { width:100%; padding:10px; background:var(--accent); color:white; border:0; border-radius:8px; font-weight:700; cursor:pointer; }
+    .back-btn { background:#6c757d; }
+
+    .hidden { display:none; }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h3>🚨 Alarm Configuration</h3>
-        
-        <div class="settings-section">
-            <label for="targetEmail">Source Email/Domain (e.g., upwork.com):</label>
-            <input type="text" id="targetEmail" placeholder="Enter source email or domain" required>
-        </div>
-        
-        <div class="settings-section">
-            <label for="keyword">Optional Keyword in Subject (e.g., client, message):</label>
-            <input type="text" id="keyword" placeholder="Enter specific word(s)">
-        </div>
-
-        <button id="startStopButton">Loading...</button>
-
+  <div id="app-container">
+    <div id="header">
+      <h3 id="app-title">Mailarm</h3>
+      <button id="settings-btn" title="Settings" aria-label="Open settings">⚙️</button>
     </div>
 
-    <script src="popup.js"></script> 
+    <!-- MONITOR VIEW -->
+    <div id="monitor-view" class="card" role="region" aria-label="Monitor status">
+      <p id="status-message" class="status-msg" aria-live="polite">Listening to 0 defined hosts</p>
+
+      <div style="display:flex; gap:8px; margin-bottom:0;">
+        <button id="startStopButton" class="rounded-btn start" aria-pressed="false">Start Monitoring </button>
+      </div>
+
+      <!-- stop alarm button below start/stop, shown only when alarm is ringing -->
+      <div style="margin-top:8px;">
+        <button id="stopAlarmButton" style="display:none;">Stop Alarm</button>
+      </div>
+
+      <p class="small-text">Total Hosts: <span id="rule-count">0</span></p>
+    </div>
+
+    <!-- SETTINGS VIEW -->
+    <div id="settings-view" class="card hidden" aria-hidden="true">
+      <h4 style="margin:0 0 8px 0;">Host Configuration</h4>
+
+      <div id="rule-list" aria-live="polite">
+        <p id="no-rules-msg" style="color:#9ca3af; font-style:italic; margin:0;">No rules defined. Add one below.</p>
+      </div>
+
+      <div id="rule-form" style="margin-top:10px; display:flex; flex-direction:column; gap:8px;">
+        <input id="input-email" type="text" placeholder="Source Email or Domain (e.g., upwork.com or user@domain.com)" aria-label="Email or domain" />
+        <input id="input-keyword" type="text" placeholder="Optional keyword in subject (e.g., invoice)" aria-label="Keyword"/>
+        <button id="add-rule-btn" class="action-btn">➕ Add Rule</button>
+        <p id="rule-feedback" class="small-text" aria-live="polite"></p>
+      </div>
+
+      <button id="back-to-monitor-btn" class="action-btn back-btn" style="margin-top:10px;">← Back to Monitor</button>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
 </body>
 </html>
