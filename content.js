@@ -1,9 +1,5 @@
 // content.js (updated)
-// Improvements:
-// - Use rules provided in refresh_and_check message (fallback to chrome.storage.local)
-// - Prevent repeated triggers with a per-sender cooldown
-// - Use chrome.storage.local (background persists to local) and safer Gmail selectors
-// - Return true for asynchronous message handlers where appropriate
+
 (function () {
   const IFRAME_ID = 'extension-alarm-iframe';
   const AUDIO_ID = 'extension-alarm-audio';
@@ -17,9 +13,8 @@
   }
   window.extensionAlarmContentScriptInitialized = true;
 
-  // cooldown to avoid repeating alarms for same sender (ms)
   const TRIGGER_COOLDOWN_MS = 30_000;
-  const lastTriggerTimes = {}; // senderLower -> timestamp
+  const lastTriggerTimes = {}; 
 
   // --------------------
   // Audio helpers

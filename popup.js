@@ -1,8 +1,5 @@
-// popup.js - UI/UX update: simplified, minimal logs (commented out), updated copy and behavior
-(function () {
-  // console.log('[Popup] initializing');
 
-  // --- UI ELEMENTS ---
+(function () {
   const settingsBtn = document.getElementById('settings-btn');
   const monitorView = document.getElementById('monitor-view');
   const settingsView = document.getElementById('settings-view');
@@ -53,36 +50,31 @@
   settingsBtn.addEventListener('click', showSettingsView);
   backToMonitorBtn.addEventListener('click', showMonitorView);
 
-  // --- UI UPDATE ---
   function updateUI(state) {
-    // console.log('[Popup] updateUI', state);
     isChecking = Boolean(state && state.status);
     rules = Array.isArray(state && state.rules) ? state.rules : rules;
 
     ruleCount.textContent = rules.length;
 
-    // Updated copy: "Listening to X defined host(s)"
     const hostsText = `Listening to ${rules.length} defined ${pluralize(rules.length, 'host', 'hosts')}`;
     statusMessage.textContent = hostsText;
 
     if (isChecking) {
-      startStopButton.textContent = 'STOP Monitoring 🛑';
+      startStopButton.textContent = 'STOP Monitoring';
       startStopButton.classList.remove('start');
       startStopButton.classList.add('stop');
     } else {
-      startStopButton.textContent = 'START Monitoring ▶️';
+      startStopButton.textContent = 'START Monitoring';
       startStopButton.classList.remove('stop');
       startStopButton.classList.add('start');
     }
 
-    // Show/hide stop alarm button under the main button when alarmRinging
     if (state && state.alarmRinging) {
       stopAlarmButton.style.display = '';
     } else {
       stopAlarmButton.style.display = 'none';
     }
 
-    // If we're in settings view, re-render list
     if (!settingsView.classList.contains('hidden')) renderRuleList();
   }
 
@@ -117,7 +109,7 @@
       });
     } else {
       if (!rules || rules.length === 0) {
-        ruleFeedback.textContent = '⚠️ Please add at least one rule before starting.';
+        ruleFeedback.textContent = '⚠️ Please add at least one host before starting.';
         ruleFeedback.style.color = 'var(--danger)';
         showSettingsView();
         return;
