@@ -1,44 +1,75 @@
-<<< MAILARM – GMAIL ALARM EXTENSION >>>
+/*  
+===========================================================
+                <<< MAILARM — GMAIL ALARM EXTENSION >>>
+===========================================================
 
-MailArm automatically checks your Gmail for new emails
-from selected senders or with specific keywords,
-and alerts you with a sound and on-screen notification.
+MailArm automatically checks your Gmail for new emails 
+from specific senders or with certain keywords, and alerts 
+you instantly with a sound and an on-screen notification.
 
----
+-----------------------------------------------------------
+                   <<< SETUP INSTRUCTIONS >>>
+-----------------------------------------------------------
 
-<<< HOW IT WORKS >>>
+To make sure the extension works properly, follow these steps:
 
-1. << SETUP AND RULES >>
-   - You add one or more rules (email address and keyword).
-   - These rules are saved in Chrome’s local storage for future use.
+1️⃣ Enable Sound Permission:
+   → Open this link: chrome://settings/content/siteDetails?site=https%3A%2F%2Fmail.google.com
+   → Turn ON the "Sound" option for Gmail.
 
-2. << BACKGROUND MONITORING >>
-   - A background script runs on a timer using Chrome Alarms API.
-   - It keeps checking Gmail even when the popup is closed.
+2️⃣ Optional (Recommended for Freelancers):
+   → If you’re using MailArm to get alerts from freelancing platforms 
+     like Fiverr or Upwork, go to your notification settings there 
+     and set "Email Delivery" to "Immediate" instead of "5–10 minutes."
 
-3. << GMAIL SCANNING >>
-   - A content script runs inside the Gmail page.
-   - It refreshes the inbox and looks for unread emails that match your rules.
+-----------------------------------------------------------
+                    <<< HOW IT WORKS >>>
+-----------------------------------------------------------
 
-4. << TRIGGERING THE ALARM >>
-   - When a match is found, it notifies the background script.
-   - The background sends a command to play the alarm sound
-     and display a visual alert on the Gmail screen.
+1️⃣ SETUP AND RULES
+   - You can add one or more rules (email address + keyword).
+   - These rules are automatically saved in Chrome’s local storage.
 
-5. << STOPPING THE ALARM >>
-   - You can stop the alarm manually through the popup.
-   - The system also prevents repeated triggers for the same sender for a short time.
+2️⃣ BACKGROUND MONITORING
+   - A background process checks Gmail every few seconds.
+   - It continues running even when the popup is closed.
 
-6. << PERSISTENT STATE >>
-   - All your settings, rules, and status are stored locally.
-   - When Chrome restarts, the extension resumes from where it left off.
+3️⃣ GMAIL SCANNING
+   - The extension refreshes your Gmail inbox automatically.
+   - It looks for unread emails that match your rules.
 
----
+4️⃣ TRIGGERING THE ALARM
+   - When a matching email is found, it plays an alarm sound 
+     and shows an alert message on your Gmail screen.
 
-<<< CORE FEATURES >>>
+5️⃣ STOPPING THE ALARM
+   - You can stop the alarm manually from the popup.
+   - The system prevents multiple triggers for the same sender 
+     within a short time.
 
-- Monitors Gmail for matching emails
-- Plays an alarm sound directly in Gmail
-- Shows on-screen and desktop alerts
-- Uses Chrome alarms for background checks
-- Saves settings automatically and restores after restart
+6️⃣ SAVED SETTINGS
+   - All rules and preferences are stored locally.
+   - When Chrome restarts, everything resumes automatically.
+
+-----------------------------------------------------------
+                   <<< CORE FEATURES >>>
+-----------------------------------------------------------
+
+✅ Monitors Gmail for selected senders or keywords  
+✅ Plays an alarm sound directly in Gmail  
+✅ Displays both on-screen and desktop alerts  
+✅ Works silently in the background  
+✅ Saves and restores your rules automatically  
+
+-----------------------------------------------------------
+                   <<< CUSTOM SOUND >>>
+-----------------------------------------------------------
+
+If you want to use a different alarm sound:
+   → Delete the existing 'alarm.mp3' file.
+   → Replace it with your own audio file named 'alarm.mp3'.
+
+-----------------------------------------------------------
+                     <<< END OF FILE >>>
+===========================================================
+*/
